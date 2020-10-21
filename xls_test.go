@@ -4,8 +4,14 @@ import (
 	"fmt"
 	"testing"
 	"unicode/utf16"
+
+	"github.com/stretchr/testify/assert"
 )
 
+func TestOpenEncryptedFile(t *testing.T) {
+	_, err := Open("Encrypted.xls", "utf-8")
+	assert.Equal(t, FileIsEncryptedError, err)
+}
 func TestOpen(t *testing.T) {
 	if xlFile, err := Open("expenses.xls", "utf-8"); err == nil {
 		if sheet1 := xlFile.GetSheet(0); sheet1 != nil {
